@@ -9,8 +9,14 @@
   retries: 3
   delay: 30
   notify:
+  - restart NetworkManager
   - restart openvswitch pause
 
+# i dont know why resolv.conf not getting triggered hence triggering this call forcibly
+- name: kamesh restart NetworkManager
+  systemd:
+    name: NetworkManager
+    state: restarted
 
 - name: restart openvswitch pause
   pause: seconds=15
@@ -22,7 +28,7 @@
     state: restarted
   register: l_openshift_node_restart_node_result
   until: not l_openshift_node_restart_node_result | failed
-  retries: 5
+  retries: 3
   delay: 30
   when:
   - (not skip_node_svc_handlers | default(False) | bool)

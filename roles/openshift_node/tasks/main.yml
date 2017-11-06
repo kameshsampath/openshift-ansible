@@ -218,7 +218,6 @@
     state: started
   when: openshift.common.is_containerized | bool
 
-
 - name: Start and enable node
   systemd:
     name: "{{ openshift.common.service_type }}-node"
@@ -230,6 +229,8 @@
   retries: 1
   delay: 30
   ignore_errors: true
+
+- meta: flush_handlers
 
 - name: Dump logs from node service if it failed
   command: journalctl --no-pager -n 100 -u {{ openshift.common.service_type }}-node
