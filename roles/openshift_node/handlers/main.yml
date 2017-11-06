@@ -9,7 +9,7 @@
   retries: 3
   delay: 30
   notify:
-  - restart NetworkManager
+  - kamesh restart NetworkManager
   - restart openvswitch pause
 
 # i dont know why resolv.conf not getting triggered hence triggering this call forcibly
