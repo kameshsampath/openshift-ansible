@@ -22,7 +22,7 @@
     state: restarted
   register: l_openshift_node_restart_node_result
   until: not l_openshift_node_restart_node_result | failed
-  retries: 3
+  retries: 5
   delay: 30
   when:
   - (not skip_node_svc_handlers | default(False) | bool)
